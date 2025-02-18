@@ -1,0 +1,42 @@
+#include <iostream>
+#include <cstdlib> 
+#include <ctime>    
+#include <limits>   
+
+using namespace std;
+
+int getValidGuess() {
+    int guess;
+    while (!(cin >> guess)) {
+        cout << "Oops! That's not a number. Try again: ";
+        cin.clear(); 
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    return guess;
+}
+
+int main() {
+    srand(time(0)); 
+    int secret = rand() % 100 + 1; 
+    int guess, attempts = 0;
+
+    cout << "\n🎉 Welcome to the Number Guessing Game! 🎉\n";
+    cout << "I've picked a secret number between 1 and 100. Can you guess it?\n\n";
+
+    while (true) {
+        cout << "Enter your guess: ";
+        guess = getValidGuess();  
+        attempts++;
+
+        if (guess < secret) {
+            cout << "🔼 Too low! Try again.\n";
+        } else if (guess > secret) {
+            cout << "🔽 Too high! Try again.\n";
+        } else {
+            cout << "🎯 Awesome! You guessed it in " << attempts << " tries.\n";
+            break;
+        }
+    }
+
+    return 0;
+}
